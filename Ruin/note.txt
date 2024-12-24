@@ -1,0 +1,5 @@
+This is the one sir we use to upload as a bid
+
+image = https://cdn.dropp.cloud/1mwct0.jpg
+name = Canon Camera
+description = Canon DSLR Camera in excellent condition, lightly used with all original accessories. Perfect for photography enthusiasts looking for high-quality images and reliable performance.

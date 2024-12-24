@@ -1,0 +1,8 @@
+Diluka Sir use these if needed to run npm......
+
+npm create vite@latest frontend
+cd frontend
+npm install
+npm install react-router-dom
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init

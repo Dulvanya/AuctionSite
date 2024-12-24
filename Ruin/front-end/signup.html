@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            // Validate password confirmation
+            if (password !== confirmPassword) {
+                document.getElementById("error-message").textContent = "Passwords do not match.";
+                return;
+            }
+
+            const userData = {
+                username: username,
+                email: email,
+                password: password
+            };
+
+            // Create XMLHttpRequest object
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://localhost:5028/api/Signup", true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+            // Set up the onload event handler
+            xhr.onload = function () {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    document.getElementById("success-message").textContent = "User registered successfully!";
+                    document.getElementById("error-message").textContent = "";
+                } else {
+                    document.getElementById("error-message").textContent = "Failed to register: " + xhr.responseText;
+                }
+            };
+
+            // Handle network errors
+            xhr.onerror = function () {
+                document.getElementById("error-message").textContent = "Network error. Please try again.";
+            };
+
+            // Send the request with user data
+            xhr.send(JSON.stringify(userData));
+        }
+    </script>
+</head>
+
+<body class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-lg">
+        <h2 class="text-3xl font-extrabold text-center text-gray-900">Create Your Account</h2>
+
+        <div id="error-message" class="text-red-500"></div>
+        <div id="success-message" class="text-green-500"></div>
+
+        <form class="mt-8 space-y-6" onsubmit="handleSubmit(event)">
+            <!-- Username Field -->
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                <input
+                    id="username"
+                    name="username"
+                    type="text"
+                    required
+                    class="appearance-none rounded block w-full px-3 py-2 border border-gray-300 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-slate-100"
+                    placeholder="Enter your username"
+                />
+            </div>
+
+            <!-- Email Field -->
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    class="appearance-none rounded block w-full px-3 py-2 border border-gray-300 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-slate-100"
+                    placeholder="Enter your email address"
+                />
+            </div>
+
+            <!-- Password Field -->
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    required
+                    class="appearance-none rounded block w-full px-3 py-2 border border-gray-300 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-slate-100"
+                    placeholder="Enter your password"
+                />
+            </div>
+
+            <!-- Confirm Password Field -->
+            <div>
+                <label for="confirm-password" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                <input
+                    id="confirm-password"
+                    name="confirmPassword"
+                    type="password"
+                    required
+                    class="appearance-none rounded block w-full px-3 py-2 border border-gray-300 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-slate-100"
+                    placeholder="Confirm your password"
+                />
+            </div>
+
+            <div>
+                <button
+                    type="submit"
+                    class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                >
+                    Sign Up
+                </button>
+            </div>
+
+            <div class="text-sm text-center">
+                Already have an account? <a href="/login" class="font-medium text-blue-600 hover:text-blue-500">Log in</a>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
